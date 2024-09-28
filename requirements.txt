@@ -1,0 +1,5 @@
+# Jupyter Project
+notebook
+jupyterlab
+voila
+

@@ -2,14 +2,11 @@
 
 All demo source code for my Udemy course **10 Popular Jupyter-Based Notebooks in 10 Days**.
 
-python -m venv venv  
-venv/scripts/activate  
+## Create a virtual environment for Python
 
-pip install notebook  
-jupyter notebook  
+`python -m venv venv`  
+`venv/scripts/activate`  
 
-pip install jupyterlab  
-jupyter lab  
+## Install all requiered packages
 
-pip install voila  
-jupyter voila  
+`python -r requirements.txt`  
