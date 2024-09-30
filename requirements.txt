@@ -3,3 +3,8 @@ notebook
 jupyterlab
 voila
 
+# Streamlit
+streamlit
+
+# Python libraries
+numpy
