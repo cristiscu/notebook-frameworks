@@ -1,15 +1,3 @@
-This is a single **line**, not displayed properly!
-Followed by another usual line, just to prove it.
-
-This is a proper line, ending with two spaces.  
-Followed by another proper line, ending as an alternative with a HTML tag.<br>
-Followed by another usual line.
-
-What follows are two **horizontal lines**, using either --- or *** markdown notations, on separate lines:
-
----
-***
-
 This is a **paragraph**, separated from the next one by an empty line (with or without spaces).
 
 This is the next paragraph.
@@ -17,7 +5,20 @@ This is the next paragraph.
 <p>And these are paragraphs using HTML tags (no empty lines between).</p>
 <p>This is the next paragraph.</p>
 
-**Code blocks** can use triple-backticks as separators:
+This is a single **line**, not displayed properly!
+Followed by another usual line, just to prove it.
+
+This is a proper line, ending with two spaces.  
+Followed by another proper line, ending as an alternative with a HTML tag.<br>
+Followed by another usual line.
+
+What follows are three **horizontal lines**, using either --- or *** markdown notations, or the `<hr>` HTML tag, on separate lines:
+
+---
+***
+<hr>
+
+Unlike **inlike code** like `var x = 123`, **code blocks** can use triple-backticks as separators:
 ```
 var x = 123
 print(x)
@@ -29,7 +30,7 @@ var x = 123
 print(x)
 ```
 
-A monospaced font (like Courier) can be used with text within backticks to show **inline code** or special characters/tags, as in `<p>...</p>`. (Try it without them, as it will not work!)
+A monospaced font (like Courier) can be used with text within backticks to show inline code or special characters/tags, as in `<p>...</p>`. (Try it without them, as it will not work!)
 
 > **Blockquote**, as simple-indented text, for lines with >.
 >
@@ -74,7 +75,6 @@ left|center|right
 left|center|right
 left|center|right
 
-**LaTeX** equation (`$$..$$`): $$y=x^2$$
+**Block LaTeX** equation (`$$..$$`): $$y=x^2$$
 
-inline LaTeX equation (`$..$`): $y=x^2$
-
+Unlike the inline LaTeX equation (`$..$`): $y=x^2$

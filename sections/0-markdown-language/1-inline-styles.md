@@ -1,12 +1,19 @@
-**bold**, __bold__, <b>bold</b>, <span class="alert"><b>bold</b></span>
+**bold**  
+__bold__  
+<b>bold</b>  
+<span class="alert"><b>bold</b></span>  
 
-*italic*, _italic_
+*italic*  
+_italic_  
 
-***bold and italic***, ___bold and italic___
+***bold and italic***  
+___bold and italic___  
 
 ~~strikethrough~~
 
 `inline code, with a monospaced font (Courier)`
+
+\`escaped text (not inline code!)\`
 
 [External Link](https://cristian-70480.medium.com/)  
 
