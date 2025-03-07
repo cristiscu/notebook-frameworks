@@ -8,7 +8,7 @@ This is the next paragraph.
 This is a single **line**, not displayed properly!
 Followed by another usual line, just to prove it.
 
-This is a proper line, ending with two spaces.  
+This is a proper line, ending with 2 spaces.  
 Followed by another proper line, ending as an alternative with a HTML tag.<br>
 Followed by another usual line.
 

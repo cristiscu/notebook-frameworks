@@ -1,10 +1,12 @@
 # title
 title
 =====
+<h1>title</h1>
 
 ## major heading
 major heading
 -------------
+<h2>major heading</h2>
 
 ### subheading
 #### 4th level subheading

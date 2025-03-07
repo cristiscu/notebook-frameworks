@@ -13,7 +13,8 @@ ___bold and italic___
 
 `inline code, with a monospaced font (Courier)`
 
-\`escaped text (not inline code!)\`
+\`escaped text (not inline code!)\`  
+\*non-italic\*
 
 [External Link](https://cristian-70480.medium.com/)  
 
