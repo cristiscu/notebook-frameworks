@@ -18,7 +18,7 @@ What follows are three **horizontal lines**, using either --- or *** markdown no
 ***
 <hr>
 
-Unlike **inlike code** like `var x = 123`, **code blocks** can use triple-backticks as separators:
+Unlike **inline code** like `var x = 123`, **code blocks** can use triple-backticks as separators:
 ```
 var x = 123
 print(x)
