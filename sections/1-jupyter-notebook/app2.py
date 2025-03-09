@@ -20,7 +20,7 @@ st.dataframe(df)
 
 import matplotlib.pyplot as plt
 
-#bins = st.sidebar.slider("Bins:", value=10, min_value=3, max_value=20, step=1)
-df.hist(column="age", bins=10)
+bins = st.sidebar.slider("Bins:", value=10, min_value=3, max_value=20, step=1)
+df.hist(column="age", bins=bins)
 st.pyplot(plt)
 #plt.show()
