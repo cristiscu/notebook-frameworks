@@ -1,0 +1,899 @@
+schemaVersion: 3
+meta:
+  sourceVersionId: 3fbef82a-6796-4d8a-9eb0-83bacd959fad # DO NOT CHANGE - Hex uses this to match up project versions when reimporting the file
+  description: null
+  projectId: d20cfc39-f24e-4fa8-850c-848b54dee526 # DO NOT CHANGE - Unique ID of the project from which this file was generated
+  title: Exploratory data analysis
+  timezone: null
+  appTheme: SYS_PREF
+  codeLanguage: PYTHON
+  status: null
+  categories: []
+  castDecimalsDefault: true
+  logicQueryCacheTimeout: null
+  publishedQueryCacheTimeout: null
+  hexType: PROJECT
+  allowExecutionReordering: true
+  prerunApp: false
+  cachePublishedAppState: true
+  refreshStalePublishedApp: false
+  autoRerunApp: true
+projectAssets:
+  dataConnections: []
+  envVars: []
+  secrets: []
+sharedAssets:
+  secrets: []
+  vcsPackages: []
+  dataConnections:
+    - dataConnectionId: 52b2c173-918c-4a8b-b1f8-870822f63876 # [Demo] Hex Public Data (snowflake)
+  externalFileIntegrations: []
+cells:
+  - cellType: MARKDOWN
+    cellId: fae6c51f-19a9-4740-bb09-9389f2f20660 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        # What is exploratory data analysis?
+        Exploratory data analysis or EDA is the process of investigating your data to understand its structure. Exploring your data can help you find any missing values, outliers, or give you some insight into unknown relationships. It's also a great way to answer questions you have like, "Which venues in my city do people visit most often?" or "How does humidity affect how long people would stay at a venue?" Using different methods to inspect your data can help you answer these questions and prepare you for more sophisticated analytical or modeling techniques. 
+  - cellType: MARKDOWN
+    cellId: 5f8fb9a5-8c77-4efc-8947-35ad211673a9 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        # Packages
+        _As a first step, we'll install and import all of the packages required to perform EDA. Hex has a library of [preinstalled packages](https://learn.hex.tech/docs/environment-configuration/using-packages#use-a-pre-installed-package), and to install a new package, you can do so in a Python cell with the statement `!pip install package_name`._
+  - cellType: CODE
+    cellId: 40efafea-d856-43f9-a36d-4dec10852682 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: "!pip install pgeocode"
+  - cellType: CODE
+    cellId: 9989fde9-2a67-42c8-83c7-7a76d9afff35 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: Imports
+    config:
+      source: |-
+        import seaborn as sns
+        import numpy as np
+        from scipy.stats import pearsonr
+        import warnings
+        import pgeocode
+
+        warnings.filterwarnings("ignore")
+  - cellType: MARKDOWN
+    cellId: 24698658-a60e-449e-9687-6b384981a90e # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        # Initial exploration
+        First things first, we have some venue data patiently on standby in a Snowflake warehouse that we'll want to pull into this project. We can achieve this in an SQL cell with a simple "select all," which will return the results as a pandas dataframe.
+  - cellType: TEXT
+    cellId: f921fc2e-a4a8-4bfe-ad67-52c408043080 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      richText:
+        - type: p
+          children:
+            - text: "We have data on venues in our Snowflake warehouse. The "
+              italic: true
+            - bold: true
+              text: Data Browser
+              italic: true
+            - text: " in the left-hand sidebar lets you peruse the tables and columns (complete with dbt documentation) to get a sense of what we're working with. "
+              italic: true
+  - cellType: SQL
+    cellId: d1bc0229-15a2-41cb-b97a-6c138583eedf # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: Data
+    config:
+      source: select * from demo_data.demos.food_and_weather
+      dataFrameCell: false
+      dataConnectionId: 52b2c173-918c-4a8b-b1f8-870822f63876
+      resultVariableName: data
+      useRichDisplay: true
+      sqlCellOutputType: PANDAS
+      useQueryMode: false
+      castDecimals: true
+      useNativeDates: true
+      outputFilteredResult: false
+      allowDuplicateColumns: true
+      tableDisplayConfig:
+        pageSize: 12
+        height: null
+        hideIcons: false
+        defaultColumnWidth: null
+        hideIndex: false
+        defaultSortColumn: null
+        defaultSortIndexColumn: null
+        defaultSortDirection: ASC
+        conditionalFormatting: null
+        calcs: null
+        filters: null
+        columnProperties:
+          - originalName: CHAIN_ID
+            renameTo: null
+            size: 201
+            wrapText: null
+            displayFormat: null
+          - originalName: CHAIN_NAME
+            renameTo: null
+            size: 236
+            wrapText: null
+            displayFormat: null
+          - originalName: CITY_NAME
+            renameTo: null
+            size: 136
+            wrapText: null
+            displayFormat: null
+          - originalName: CONFIDENCE_SCORE
+            renameTo: null
+            size: 188
+            wrapText: null
+            displayFormat: null
+          - originalName: DATE
+            renameTo: null
+            size: 100
+            wrapText: null
+            displayFormat: null
+          - originalName: FEELS_LIKE
+            renameTo: null
+            size: 158
+            wrapText: null
+            displayFormat: null
+          - originalName: HUMIDITY
+            renameTo: null
+            size: 129
+            wrapText: null
+            displayFormat: null
+          - originalName: SOURCE
+            renameTo: null
+            size: 116
+            wrapText: null
+            displayFormat: null
+          - originalName: TEMPERATURE
+            renameTo: null
+            size: 158
+            wrapText: null
+            displayFormat: null
+          - originalName: VISIT_DURATION
+            renameTo: null
+            size: 167
+            wrapText: null
+            displayFormat: null
+          - originalName: ZIP
+            renameTo: null
+            size: 90
+            wrapText: null
+            displayFormat: null
+          - originalName: row-index-0
+            renameTo: null
+            size: 46
+            wrapText: null
+            displayFormat: null
+        columnOrdering: null
+        customColumnOrdering: null
+        pinnedColumns: null
+        hiddenColumns: null
+        pinIndexColumns: false
+        showAggregations: false
+        columnAggregations: null
+  - cellType: MARKDOWN
+    cellId: 6c084bfe-ef90-4d41-9f82-997d9567b327 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: To better capture the schema of our table, we'll call the pandas `.info()` method on our dataframe. This will give us details about the columns in our data such as the data types, null value count, and data shape.
+  - cellType: CODE
+    cellId: a3233c5e-3d1b-4085-ad47-d703cee3d545 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: data.info()
+  - cellType: MARKDOWN
+    cellId: 18a13d48-53c3-4493-a1e4-d62b55e210e9 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        According to this function, our data has
+
+        * 469,344 rows
+        * 13 columns
+        * No null values 😮‍💨
+        * 7 string columns, 4 float columns, and 2 integer columns
+
+        Although this tells us a lot more about the data itself, it doesn't give us much insight into the *values* of our data. We know nothing about the range of our numerical columns, what an average value looks like, or if we might have any outliers present in our dataset. Knowing this information is crucial when exploring data so we'll call the pandas `.describe()` method which will output a [5 number summary](https://www.analyticsvidhya.com/blog/2021/05/five-number-summary-for-analysis/) for each numerical variable in our dataset.
+  - cellType: CODE
+    cellId: 255e8d8f-3be9-4ee0-a47a-3e10f4322e70 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: data.describe()
+  - cellType: TEXT
+    cellId: 266a785d-c1e7-426a-84eb-3157c2222bcd # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      richText:
+        - type: h1
+          children:
+            - text: Handling outliers
+        - type: paragraph
+          children:
+            - text: "This summary gives us a feel for the boundaries of our variables and can point at initial hints of any anomalies that may be present, such as outliers. Speaking of outliers,  take a look at the "
+            - code: true
+              text: visit_duration
+            - text: " column and see if you notice anything a bit off. A picture is worth 1000 words so let's visualize this column in a boxplot to accentuate any anomalies that aren't apparent from the summary."
+  - cellType: MARKDOWN
+    cellId: 33fb9db8-eb68-457c-bfd6-9630775e5435 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |
+        _It may not be very obvious but look at the standard deviation when compared to the mean. Intuitively, the mean tells you the value that lies at the center of your data, while the standard deviation tells you how spread out your data is around the mean. Our data says that the average `visit_duration` is 38 minutes with a spread of $$\pm$$ 99 minutes, which means that some people could be visiting venues for at least -65 minutes. Unfortunately, this is physically impossible and leads me to believe that there are some outliers throwing off our data._ 
+
+        _Another thing to notice is that the max `visit_duration` is 85x bigger than the `visit_duration` in the 3rd quartile. The 3rd quartile tells us the value under which 75% of the data can be found when arranged in increasing order. This means that of all the people who visit venues, 75% of them spend 34 minutes or less at their venue of choice. Then that number suddenly jumps up to 2,648 minutes 😳._ 
+  - cellType: CODE
+    cellId: 49ebacaf-ab55-4a27-ab18-55c5794f8a83 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        sns.set(rc = {'figure.figsize':(15,8)})
+        sns.boxplot(x = data['VISIT_DURATION'], y = data['CITY_NAME']);
+  - cellType: MARKDOWN
+    cellId: cc649dcc-9278-45bb-a470-a96f8a3cd3aa # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: The only thing you may be able to gather from this plot is that outliers are most definitely present. To detect which values are outliers, we'll use the [IQR approach](https://towardsdatascience.com/why-1-5-in-iqr-method-of-outlier-detection-5d07fdc82097) and remove any values that fall outside the upper and lower bounds of our results.
+  - cellType: CODE
+    cellId: 3ba81205-98b8-43e6-a0e0-8c6a6850aa3d # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: Cleaned data
+    config:
+      source: |-
+        def outliers(values):
+            q1, q3 = np.percentile(values, [25, 75])
+            iqr = q3 - q1
+            lower = q1 - (1.5 * iqr)
+            upper = q3 + (1.5 * iqr)
+            return lower, upper
+
+        # calculate the lower and upper outlier limit
+        lower, upper = outliers(data['VISIT_DURATION'])
+
+        # create filters that remove all rows the fall outside of these limits
+        lower_mask = (data['VISIT_DURATION'] > lower)
+        upper_mask = (data['VISIT_DURATION'] < upper)
+
+        # apply the filters to the dataset
+        cleaned_data = data[lower_mask & upper_mask]
+  - cellType: CODE
+    cellId: 5831a033-69ad-4a71-b5a7-3d4d0d33c349 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: sns.boxplot(x = cleaned_data['VISIT_DURATION'], y = cleaned_data['CITY_NAME']);
+  - cellType: MARKDOWN
+    cellId: 92d537bc-2876-4fb1-ac84-68763342dc59 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        # Feature Engineering
+        Feature engineering is the process of manipulating your data such that columns are created, updated, or deleted. The motivations behind feature engineering will differ between projects but for our purposes, we'll use it to add a column that has the coordinates for each venue and project the most popular places onto a map. We can use the `pgeocode` package to extract coordinates from any valid zip code.
+  - cellType: CODE
+    cellId: 46422713-e97c-431d-842d-693661329abd # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        def add_coordinates(frame):
+            '''
+                Accepts a dataframe and returns it with the new columns lat and lng
+            '''
+            # create geocoding object
+            nomi = pgeocode.Nominatim('us')
+            frame = frame.copy()
+            # list of each unique zip code
+            unique_zips = frame['ZIP'].unique().tolist()
+            coordinates = {}
+            # for each unique zip code
+            for zipcode in unique_zips:
+                # get the location data
+                location = nomi.query_postal_code(zipcode)
+                # extract and add the coordinates to our coordinate dictionary
+                coordinates.setdefault(zipcode, {'lat':location.latitude, 'lng':location.longitude})
+            # add the coordinates to the dataframe
+            frame['lat'] = frame['ZIP'].apply(lambda row: coordinates[row]['lat'])
+            frame['lng'] = frame['ZIP'].apply(lambda row: coordinates[row]['lng'])
+
+            return frame, coordinates
+
+        cleaned_data, coordinates = add_coordinates(cleaned_data)
+  - cellType: TABLE_DISPLAY
+    cellId: e3b255b7-7c83-4509-a794-ab8e0380adde # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      dataFrameVariableName: cleaned_data
+      resultVariable: table_result
+      tableDisplayConfig:
+        pageSize: 12
+        height: null
+        hideIcons: false
+        defaultColumnWidth: null
+        hideIndex: false
+        defaultSortColumn: null
+        defaultSortIndexColumn: null
+        defaultSortDirection: ASC
+        conditionalFormatting:
+          rulesets:
+            - type: RULES
+              rules:
+                - style: GREEN
+                  expression:
+                    op: ALWAYS
+              columns:
+                type: INCLUDE
+                includedColumns:
+                  - lat
+                  - lng
+        calcs: null
+        filters: null
+        columnProperties:
+          - originalName: CHAIN_ID
+            renameTo: null
+            size: 201
+            wrapText: null
+            displayFormat: null
+          - originalName: CHAIN_NAME
+            renameTo: null
+            size: 186
+            wrapText: null
+            displayFormat: null
+          - originalName: CITY_NAME
+            renameTo: null
+            size: 136
+            wrapText: null
+            displayFormat: null
+          - originalName: CONFIDENCE_SCORE
+            renameTo: null
+            size: 188
+            wrapText: null
+            displayFormat: null
+          - originalName: DATE
+            renameTo: null
+            size: 100
+            wrapText: null
+            displayFormat: null
+          - originalName: FEELS_LIKE
+            renameTo: null
+            size: 150
+            wrapText: null
+            displayFormat: null
+          - originalName: HUMIDITY
+            renameTo: null
+            size: 158
+            wrapText: null
+            displayFormat: null
+          - originalName: SNOW_DEPTH
+            renameTo: null
+            size: 149
+            wrapText: null
+            displayFormat: null
+          - originalName: SOURCE
+            renameTo: null
+            size: 116
+            wrapText: null
+            displayFormat: null
+          - originalName: TEMPERATURE
+            renameTo: null
+            size: 158
+            wrapText: null
+            displayFormat: null
+          - originalName: VISIT_DURATION
+            renameTo: null
+            size: 167
+            wrapText: null
+            displayFormat: null
+          - originalName: ZIP
+            renameTo: null
+            size: 90
+            wrapText: null
+            displayFormat: null
+          - originalName: row-index-0
+            renameTo: null
+            size: 46
+            wrapText: null
+            displayFormat: null
+        columnOrdering: null
+        customColumnOrdering: null
+        pinnedColumns: null
+        hiddenColumns: null
+        pinIndexColumns: false
+        showAggregations: false
+        columnAggregations: null
+  - cellType: MARKDOWN
+    cellId: cb73fde0-8eab-425a-97db-1cf8538c3631 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        # Visual question answering
+        What if we wanted to know where the most popular venues are? Or how certain variables correlate with visit times? In this section, we'll use visuals to give us insight on questions we may have.
+
+        First, let's look into the most frequently visited popular venues per city.
+  - cellType: TEXT
+    cellId: fbabf4f3-6cab-4979-acce-2cac5ad420e8 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      richText:
+        - type: paragraph
+          children:
+            - text: The 2 drop downs let you select a city as well as a venue where the most frequently visited venues are projected on to the map. The more visits a venue has, the larger the marker will be.
+              italic: true
+  - cellType: INPUT
+    cellId: 09d81acd-514a-4221-a823-11f616f22e25 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: City
+    config:
+      inputType: DROPDOWN
+      name: city_filter
+      outputType: DYNAMIC
+      options:
+        valueOptions:
+          dfName: cleaned_data
+          columnName: CITY_NAME
+          variableName: cleaned_data['CITY_NAME']
+      defaultValue: San Francisco
+  - cellType: CODE
+    cellId: 52e7c230-e78e-4ec9-b758-eee689d9084e # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: Returns 
+    config:
+      source: |-
+        # If im in `city` and want to go to one of the x most popular resturaunts, which zip codes are the mos popular for my venue of choice
+        city_df = cleaned_data[cleaned_data['CITY_NAME'] == city_filter]
+  - cellType: INPUT
+    cellId: 7b66fbcc-aeea-4df1-a12b-aa82a2f8e787 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: Venue
+    config:
+      inputType: DROPDOWN
+      name: venue
+      outputType: DYNAMIC
+      options:
+        valueOptions:
+          dfName: city_df
+          columnName: CHAIN_NAME
+          variableName: city_df['CHAIN_NAME']
+      defaultValue: Chipotle Mexican Grill
+  - cellType: CODE
+    cellId: 9a1d41bb-7b31-4fd9-9f91-d8a2daa65b98 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: venue_df = city_df[city_df['CHAIN_NAME'] == venue]
+  - cellType: CODE
+    cellId: e437b249-5aa6-4318-9ae6-c654fafcbf63 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: Returns the total visits per popular venue in the city
+    config:
+      source: |-
+        def coordinate_mapping(zip_code):
+            coordinates = venue_df[venue_df['ZIP'] == str(zip_code)][['lat', 'lng']].iloc[0].to_list()
+            return coordinates
+
+        # group by zip code in order to determine the most popular  venue location
+        venue_grouped = venue_df.groupby(['ZIP', 'CHAIN_NAME']).agg({'VISIT_DURATION':'sum', 'DATE': 'count'}).reset_index()
+        venue_grouped.rename({'DATE':'total_visits', "VISIT_DURATION":"visit_duration_sum"}, axis = 1, inplace = True)
+        venue_grouped['coordinates'] = venue_grouped['ZIP'].apply(lambda row: coordinate_mapping(row))
+
+        most_popular_zip = venue_grouped.sort_values(by = 'visit_duration_sum', ascending = False)['ZIP'].iloc[0]
+        total_visits = venue_grouped.sort_values(by = 'total_visits', ascending = False)['total_visits'].iloc[0]
+  - cellType: MAP
+    cellId: 17c04396-0738-46aa-be1f-37416536e955 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      height: 520
+      map:
+        theme: hex
+        layers:
+          - id: 3ec8b216-ce16-4fcb-9366-c9a3cc6228cd
+            data:
+              coordinates:
+                system: latlng
+                dataFrameColumn: coordinates
+              dataFrameName: venue_grouped
+            fill:
+              type: dynamic
+              colors:
+                - - 41
+                  - 160
+                  - 124
+                - - 242
+                  - 184
+                  - 36
+                - - 200
+                  - 70
+                  - 84
+              opacity: 1
+              dataFrameColumn: total_visits
+            type: scatter
+            radius:
+              max: 100
+              min: 30
+              type: dynamic
+              dataFrameColumn: total_visits
+            opacity: 0.5
+            visible: true
+            tooltipDataFrameColumns:
+              - ZIP
+              - visit_duration_sum
+              - total_visits
+              - CHAIN_NAME
+        isLegendOpen: false
+  - cellType: MARKDOWN
+    cellId: 208989e3-c9c4-4aed-a10a-c29927654068 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: According to the map above, the zipcode {{most_popular_zip}} is home to the most popular {{venue}} in {{city_filter}} with {{total_visits}} total visits.
+  - cellType: MARKDOWN
+    cellId: 4452acde-74d6-4123-87e3-46d5db00ebfa # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        ## How does humidity affect visit times?
+        Humidity is a measure of the amount of moisture present in the air, and for most people, more moisture is typically felt as a higher level of discomfort. Here, we want to see if there is a relationship between the humidity and the average amount of time people stay at a venue. The hypothesis is that as humidity increases, we will also see a change in visit duration.
+  - cellType: TEXT
+    cellId: 5984f2d2-a5c7-42ed-aa6b-3335d6bcaece # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      richText:
+        - type: paragraph
+          children:
+            - text: We can use a built-in Hex chart for quick and easy no-code visualizations.
+              italic: true
+  - cellType: CHARTV2
+    cellId: 1a7e6ffd-6be4-4ed7-bcee-6fdcd9e63a8a # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      height: null
+      chartSpec:
+        type: layered
+        layers:
+          - id: 44d66b7d-847e-47b4-bf84-16b37a15fd3d
+            xAxis:
+              type: number
+              style:
+                min: 15
+                grid:
+                  style: solid
+                ticks: {}
+                labels: {}
+              dataFrameColumn: HUMIDITY
+            series:
+              - id: 6c5bfb0f-9bd9-4c38-b0dc-4cd5d45a7691
+                type: scatter
+                axis:
+                  type: number
+                  style:
+                    grid:
+                      style: solid
+                    ticks: {}
+                    labels: {}
+                  aggregate: average
+                dataFrameColumns:
+                  - VISIT_DURATION
+                colorOrder: []
+                color:
+                  type: static
+                opacity:
+                  type: static
+                  value: 1
+                tooltip:
+                  type: auto
+                filled: true
+            dataFrame: cleaned_data
+        settings:
+          legend:
+            position: right
+          tooltip: true
+          selectionEnabled: false
+      chartSelection: {}
+      colorMappings: {}
+      resultVariable: selection
+      outputResult: false
+      displayType: CHART
+      displayTableConfig: null
+  - cellType: CODE
+    cellId: 8819ef3d-3948-462e-bd78-b970f662d06b # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: corr, _ = pearsonr(cleaned_data['HUMIDITY'], cleaned_data['VISIT_DURATION'])
+  - cellType: TEXT
+    cellId: 6893ade6-eb8b-478a-a9c3-3c67b03be843 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      richText:
+        - type: paragraph
+          children:
+            - text: "So far, the graph is indicating that there isn't any relationship between humidity and visit times. We can verify this by getting whats known as a "
+              italic: true
+            - url: https://www.investopedia.com/terms/c/correlationcoefficient.asp
+              type: a
+              children:
+                - text: correlation coefficient
+                  italic: true
+            - text: ", which will tell us how strong a relationship is between a set of variables."
+              italic: true
+  - cellType: MARKDOWN
+    cellId: 88d50c05-3da6-48d2-9b80-abcd640366b5 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: Our correlation coefficient is `{{corr | round(4)}}` which is essentially no correlation at all. This means we can reject the hypothesis that we will observe a change in visit time as we observe a change in humidity. Let's compare some other variables to the `visit_duration` to see if we can find a clear relationship between these variables.
+  - cellType: CHARTV2
+    cellId: 1a9280ed-7990-4909-9424-676ffc0537f5 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: Temperature vs. Visit duration
+    config:
+      height: null
+      chartSpec:
+        type: layered
+        layers:
+          - id: 9814c788-1e1b-4a55-b7eb-69f27cf194a5
+            xAxis:
+              type: number
+              style:
+                grid:
+                  style: solid
+                ticks: {}
+                labels: {}
+              dataFrameColumn: TEMPERATURE
+            series:
+              - id: 4a1bb30a-5214-4d12-a4a1-ff1c754d60d3
+                type: scatter
+                axis:
+                  type: number
+                  style:
+                    grid:
+                      style: solid
+                    ticks: {}
+                    labels: {}
+                  aggregate: average
+                dataFrameColumns:
+                  - VISIT_DURATION
+                colorOrder: []
+                color:
+                  type: static
+                opacity:
+                  type: static
+                  value: 1
+                tooltip:
+                  type: auto
+                filled: true
+            dataFrame: cleaned_data
+        settings:
+          legend:
+            position: right
+          tooltip: true
+          selectionEnabled: false
+      chartSelection: {}
+      colorMappings: {}
+      resultVariable: selection
+      outputResult: false
+      displayType: CHART
+      displayTableConfig: null
+  - cellType: CHARTV2
+    cellId: c6497d1f-5f9a-4f49-aea4-92751dc2bcf0 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: Cloud cover vs. Visit duration
+    config:
+      height: null
+      chartSpec:
+        type: layered
+        layers:
+          - id: 033f6e21-45a5-49f5-8ae0-c900ef7500c3
+            xAxis:
+              type: number
+              style:
+                grid:
+                  style: solid
+                ticks: {}
+                labels: {}
+              dataFrameColumn: CLOUD_COVER
+            series:
+              - id: 5c16a894-2cee-425f-b42f-8054e76846c1
+                type: scatter
+                axis:
+                  type: number
+                  style:
+                    min: 15
+                    grid:
+                      style: solid
+                    ticks: {}
+                    labels: {}
+                  aggregate: average
+                dataFrameColumns:
+                  - VISIT_DURATION
+                colorOrder: []
+                color:
+                  type: static
+                opacity:
+                  type: static
+                  value: 1
+                tooltip:
+                  type: auto
+                filled: true
+            dataFrame: cleaned_data
+        settings:
+          legend:
+            position: right
+          tooltip: true
+          selectionEnabled: false
+      chartSelection: {}
+      colorMappings: {}
+      resultVariable: selection
+      outputResult: false
+      displayType: CHART
+      displayTableConfig: null
+  - cellType: MARKDOWN
+    cellId: ac8ce682-566b-4745-9d31-ebdac5006864 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: Similar to humidity, there seems to be no clear relationship between visit times and temperature, and the same goes for cloud cover. To verify again, we'll look at the correlation coefficients for each of these variables.
+  - cellType: CODE
+    cellId: 71edb9e1-807e-4eff-91b7-d01f3c149fe9 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        variables = ['HUMIDITY', 'TEMPERATURE', 'CLOUD_COVER']
+        for variable in variables:
+            corr, _ = pearsonr(cleaned_data[variable], cleaned_data['VISIT_DURATION'])
+            print(f"The correlation coefficient between {variable} and visit_duration is {round(corr, 4)}")
+  - cellType: MARKDOWN
+    cellId: d9254774-267a-43c4-8f47-250eff13ad2e # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        # Which popular venues do people stay at the longest?
+        To answer this question, we'll investigate which venues people tend to stay at the longest on a general basis and per city. You can tweak the input paramters below to get different results.
+
+        * City exclusive: determines whether to show venues per city or in general.
+        * City Name: if `city_exclusive` is enabled, allows you to choose which city to look at.
+        * Venue count: how many venues to show.
+  - cellType: INPUT
+    cellId: 49a984ec-05df-4040-ad71-60503f045f5a # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: City exclusive
+    config:
+      inputType: CHECKBOX
+      name: by_city
+      outputType: BOOLEAN
+      options:
+        style: switch
+        text: Show by city
+      defaultValue: true
+  - cellType: INPUT
+    cellId: c3784899-2c2f-4273-955e-8586b9e4b30c # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: City name
+    config:
+      inputType: DROPDOWN
+      name: city
+      outputType: DYNAMIC
+      options:
+        valueOptions:
+          dfName: cleaned_data
+          columnName: CITY_NAME
+          variableName: cleaned_data['CITY_NAME']
+      defaultValue: San Francisco
+  - cellType: INPUT
+    cellId: f786c0d1-32aa-4964-8d8e-6b112439430c # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: Venue count
+    config:
+      inputType: SLIDER
+      name: limit
+      outputType: NUMBER
+      options:
+        min: 3
+        max: 15
+        step: 1
+      defaultValue: 8
+  - cellType: CODE
+    cellId: fddc0b54-371f-4476-81e7-e9b090db266d # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        most_popular = (
+            cleaned_data.groupby("CHAIN_NAME")
+            .count()
+            .sort_values(by="DATE", ascending=False)
+            .reset_index()
+            .head(limit)['CHAIN_NAME'].tolist()
+        ) if not by_city else (
+            cleaned_data[cleaned_data['CITY_NAME'] == city].groupby("CHAIN_NAME")
+            .count()
+            .sort_values(by="DATE", ascending=False)
+            .reset_index()
+            .head(limit)['CHAIN_NAME'].tolist()
+        )
+
+        top_ten = cleaned_data[cleaned_data['CHAIN_NAME'].isin(most_popular)]
+  - cellType: MARKDOWN
+    cellId: 001a64eb-7966-4d87-80d9-e044be95e387 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |+
+        {%- if by_city -%}
+        ## Top {{limit}} venues with the longest visit duration in {{city}}
+
+        {% else %}
+        ## Top {{limit}} venues with the longest visit duration 
+
+        {% endif %}
+
+
+  - cellType: CHARTV2
+    cellId: d4e433aa-77a9-4fe1-885e-9b3ab1824fc9 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: Most popular venues
+    config:
+      height: null
+      chartSpec:
+        type: layered
+        layers:
+          - id: 74404ccf-8bd6-43ee-9daa-a82bba0002a6
+            xAxis:
+              sort: -x
+              type: string
+              style:
+                grid:
+                  style: solid
+                ticks: {}
+                labels: {}
+              dataFrameColumn: CHAIN_NAME
+            series:
+              - id: d9e5e99a-cb13-47d0-8cea-b24c4e7fc2d9
+                type: bar
+                axis:
+                  type: number
+                  style:
+                    grid:
+                      style: solid
+                    ticks: {}
+                    labels: {}
+                  aggregate: average
+                dataFrameColumns:
+                  - VISIT_DURATION
+                colorDataFrameColumn: CHAIN_NAME
+                colorOrder: []
+                color:
+                  type: series
+                  colorsBySeriesValues: {}
+                opacity:
+                  type: static
+                  value: 1
+                tooltip:
+                  type: auto
+                barWidth: 1
+                orientation: horizontal
+                layout: grouped
+            dataFrame: top_ten
+        settings:
+          legend:
+            position: right
+          tooltip: true
+      chartSelection: {}
+      colorMappings: {}
+      resultVariable: selection
+      outputResult: false
+      displayType: CHART
+      displayTableConfig: null
+  - cellType: MARKDOWN
+    cellId: 437fdcd8-9e15-48d2-8b2c-166fd9bc09e1 # DO NOT CHANGE - Hex uses this to match up cells when reimporting the file, and detect any changes to existing cells
+    cellLabel: null
+    config:
+      source: |-
+        # Conclusion
+        Welcome to the end of this tutorial on EDA! We've covered a lot of material on how you can build an EDA project in Hex, specifically focused on:
+        * Inspection of your data.
+        * How to handle outliers.
+        * Engineering new features.
+        * How to visualize your data.
+
+        Feel free to transfer the knowledge learned here into your own EDA projects, or apply the knowledge gained to another type of project. 
+
+        ## Additional resources
+        * EDA [blog post](https://hex.tech/blog/exploratory-data-analysis-python/)
+appLayout:
+  visibleMetadataFields:
+    - NAME
+    - DESCRIPTION
+    - AUTHOR
+    - LAST_EDITED
+    - LAST_RUN
+    - CATEGORIES
+    - STATUS
+  fullWidth: false
+  tabs:
+    - name: Tab 1
+      rows: []
+sharedFilters: []
